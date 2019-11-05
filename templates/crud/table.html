@@ -1,0 +1,74 @@
+{% include 'crud/includes.html' %}
+{% load humanize_fields %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+        <th scope="col">
+            <input type="checkbox" value="" id="mass_choice">
+        </th>
+
+        {% for tr_head in crud.form_list.fields %}
+            <th scope="col">{{ tr_head|h_fields }}</th>
+        {% endfor %}
+          <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for obj in crud.list_data %}
+    <tr>
+            <th scope="row">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="mass_choice_{{ obj.id }}">
+                </div>
+            </th>
+        {% for value, type in obj.fields %}
+            {% if type == 'BooleanField' %}
+                {% if value is 'True' %}
+                <td>
+                    <i class="fa fa-check-circle"></i>
+                </td>
+                {% else %}
+                <td>
+                    <i class="fa fa-minus-circle"></i>
+                </td>
+                {% endif %}
+                {% elif type == 'TextField' %}
+                    <td>
+                        {{ value|truncatechars:120 }}
+                    </td>
+             {% else %}
+                <td>{{ value }}</td>
+            {% endif %}
+        {% endfor %}
+
+    <td>
+          <a href="#edit" style="text-decoration: none">
+              <i class="fa fa-edit"></i>
+          </a>
+          <a href="#delete" style="text-decoration: none">
+              <i class="fa fa-trash"></i>
+          </a>
+      </td>
+    </tr>
+  {% endfor %}
+
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>Otto</td>
+      <td>Otto</td>
+      <td>Otto</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>
+          <a href="#edit" style="text-decoration: none">
+              <i class="fa fa-edit"></i>
+          </a>
+          <a href="#delete" style="text-decoration: none">
+              <i class="fa fa-trash"></i>
+          </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
